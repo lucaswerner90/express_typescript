@@ -104,7 +104,7 @@ class Server {
     public startServer() {
 
         this.configureServer();
-
+        
         if (this.ENVIROMENT !== 'test') {
             this.app.listen(this.PORT);
         } else {
@@ -121,6 +121,4 @@ class Server {
 
 
 const server = new Server();
-
-
 server.startServer();
