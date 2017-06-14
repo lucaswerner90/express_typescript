@@ -11,7 +11,7 @@ describe('Main test --> ', () => {
     server
       .get('/')
       .end((err, res) => {
-        assert(res.status===200);
+        assert(res.status === 200);
         assert(res.body.message);
         done();
       });
@@ -20,7 +20,7 @@ describe('Main test --> ', () => {
     server
       .get('/test')
       .end((err, res) => {
-        assert(res.status===200);
+        assert(res.status === 200);
         assert(res.body.message);
         done();
       });
@@ -29,7 +29,7 @@ describe('Main test --> ', () => {
     server
       .get('/testsssssssssss')
       .end((err, res) => {
-        assert(res.status===404);
+        assert(res.status === 404);
         done();
       });
   });

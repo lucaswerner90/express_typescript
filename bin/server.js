@@ -3,6 +3,7 @@ const express = require("express");
 const compression = require("compression");
 const body_parser = require("body-parser");
 const index_routes_1 = require("./routes/index_routes");
+const constants_1 = require("./constants");
 /**
  *
  *
@@ -76,7 +77,7 @@ class Server {
      * @memberof Server
      */
     errorNotFoundHandler(request, response, next) {
-        response.status(404).send({ error: "Error message!" });
+        response.status(constants_1.SERVER_RESPONSE_CODES.NOT_FOUND).send({ error: "Error message!" });
     }
     /**
      * Starts the server already configured
