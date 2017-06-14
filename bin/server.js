@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const compression = require("compression");
+const body_parser = require("body-parser");
 const index_routes_1 = require("./routes/index_routes");
 /**
  *
@@ -51,6 +52,8 @@ class Server {
      */
     configureThirdPartyMiddlewares() {
         this.app.use(compression());
+        this.app.use(body_parser.urlencoded({ extended: true }));
+        this.app.use(body_parser.json());
     }
     /**
      *

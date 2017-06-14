@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as compression from "compression";
+import * as body_parser from "body-parser";
 import { basic_router } from "./routes/index_routes";
 
 
@@ -44,7 +45,7 @@ class Server {
         this.configureThirdPartyMiddlewares();
         this.configureRoutes();
         this.configureHandlers();
-        
+
     }
 
     /**
@@ -54,7 +55,7 @@ class Server {
      * 
      * @memberof Server
      */
-    private configureRoutes(): void{
+    private configureRoutes(): void {
         this.app.use("/", basic_router);
     }
 
@@ -65,8 +66,10 @@ class Server {
      * 
      * @memberof Server
      */
-    private configureThirdPartyMiddlewares(): void{
+    private configureThirdPartyMiddlewares(): void {
         this.app.use(compression());
+        this.app.use(body_parser.urlencoded({extended: true}));
+        this.app.use(body_parser.json());
     }
 
     /**
@@ -76,7 +79,7 @@ class Server {
      * 
      * @memberof Server
      */
-    private configureHandlers(): void{
+    private configureHandlers(): void {
         this.app.use(this.errorNotFoundHandler);
     }
 
@@ -90,10 +93,10 @@ class Server {
      * 
      * @memberof Server
      */
-    private errorNotFoundHandler(request: Express.Request, response: Express.Response, next): void{
+    private errorNotFoundHandler(request: Express.Request, response: Express.Response, next): void {
         response.status(404).send({ error: "Error message!" });
     }
-    
+
 
     /**
      * Starts the server already configured
@@ -104,13 +107,13 @@ class Server {
     public startServer() {
 
         this.configureServer();
-        
+
         if (this.ENVIROMENT !== 'test') {
             this.app.listen(this.PORT);
         } else {
-            module.exports = this.app;    
+            module.exports = this.app;
         }
-        
+
     }
 
 

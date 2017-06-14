@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "DEBUG=express* PORT=8000 NODE_ENV=dev nodemon --exitcrash --inspect ./bin/server.js",
-    "test": "NODE_ENV=test nyc mocha ./**/**.spec.js",
-    "coverage": "nyc npm test && nyc report"
+    "test": "NODE_ENV=test nyc --reporter=html mocha ./**/**.spec.js",
+    "coverage": "nyc report "
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "nyc": "^11.0.2"
+    "nyc": "^11.0.2",
+    "supertest": "^3.0.0"
   }
 }
