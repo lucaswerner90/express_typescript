@@ -1,5 +1,5 @@
 # NodeJS / ExpressJS / TypeScript template 
-![alt text](https://mayajuni.github.io/2016/06/30/typescript-express/typescript-express-nodejs.jpg "NodeJS/ExpressJS/Typescript")
+![logo](https://mayajuni.github.io/2016/06/30/typescript-express/typescript-express-nodejs.jpg "NodeJS/ExpressJS/Typescript")
 ## Simple template project configured to use ExpressJS with Typescript on VS Code.
 Originally created by [Lucas Werner](https://www.linkedin.com/in/lucas-werner/)
 
