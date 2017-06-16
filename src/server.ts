@@ -118,7 +118,7 @@ export class Server {
      * 
      * @memberof Server
      */
-    private errorNotFoundHandler(request: Express.Request, response: any, next): void {
+    private errorNotFoundHandler(request: Express.Request, response: any = {} as Express.Response, next:Function): void {
         response.status(SERVER_RESPONSE_CODES.NOT_FOUND).send({ error: "Error message!" });
     }
 
@@ -148,5 +148,7 @@ export class Server {
 
 
 
-const server = new Server();
+const server: Server=new Server(process.env.NODE_ENV,process.env.PORT);
+
+// Starts the server
 server.startServer();

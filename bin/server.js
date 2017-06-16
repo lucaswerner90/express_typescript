@@ -79,7 +79,7 @@ class Server {
      *
      * @memberof Server
      */
-    errorNotFoundHandler(request, response, next) {
+    errorNotFoundHandler(request, response = {}, next) {
         response.status(constants_1.SERVER_RESPONSE_CODES.NOT_FOUND).send({ error: "Error message!" });
     }
     /**
@@ -99,5 +99,6 @@ class Server {
     }
 }
 exports.Server = Server;
-const server = new Server();
+const server = new Server(process.env.NODE_ENV, process.env.PORT);
+// Starts the server
 server.startServer();
