@@ -17,9 +17,11 @@ class Server {
      *
      * @memberof Server
      */
-    constructor(env = "production", port = 8000) {
+    constructor(env = "production", port = 8000, public_dir = "public") {
+        this._public_files = "public";
         this.ENVIROMENT = process.env.NODE_ENV || env;
         this.PORT = process.env.PORT || port;
+        this._public_files = public_dir;
         this.app = express();
     }
     /**
@@ -42,6 +44,7 @@ class Server {
      * @memberof Server
      */
     configureRoutes() {
+        this.app.use(express.static(this._public_files));
         this.app.use("/", index_routes_1.basic_router);
     }
     /**
@@ -95,5 +98,6 @@ class Server {
         }
     }
 }
+exports.Server = Server;
 const server = new Server();
 server.startServer();

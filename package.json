@@ -1,5 +1,5 @@
 {
-  "name": "pruebaExpressTypescript",
+  "name": "nodejsExpressjsTypescriptTemplate",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -8,8 +8,8 @@
     "test": "NODE_ENV=test nyc --reporter=html mocha ./**/**.spec.js",
     "coverage": "nyc report "
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["nodejs","expressjs","typescript","lucas werner","es6","template"],
+  "author": "Lucas Werner",
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.0.35",

@@ -14,13 +14,35 @@ type ENVIRONMENT_TYPE = 'production' | 'development' | 'test';
  * 
  * @class Server
  */
-class Server {
+export class Server {
 
+    /**
+     * 
+     * 
+     * @private
+     * @type {ENVIRONMENT_TYPE}
+     * @memberof Server
+     */
     private ENVIROMENT: ENVIRONMENT_TYPE;
+    /**
+     * 
+     * 
+     * @private
+     * @type {number}
+     * @memberof Server
+     */
     private PORT: number;
+    /**
+     * 
+     * 
+     * @private
+     * @type {*}
+     * @memberof Server
+     */
     private app: any;
 
 
+    private _public_files: string = "public";
     /**
      * Creates an instance of Server.
      * @param {string} [env="production"] 
@@ -28,11 +50,10 @@ class Server {
      * 
      * @memberof Server
      */
-
-
-    constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000) {
+    constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir:string="public") {
         this.ENVIROMENT = process.env.NODE_ENV || env;
         this.PORT = process.env.PORT || port;
+        this._public_files = public_dir;
         this.app = express();
     }
 
@@ -59,6 +80,7 @@ class Server {
      * @memberof Server
      */
     private configureRoutes(): void {
+        this.app.use(express.static(this._public_files));
         this.app.use("/", basic_router);
     }
 
