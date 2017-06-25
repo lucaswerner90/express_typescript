@@ -2,19 +2,19 @@ import * as express from "express";
 import * as compression from "compression";
 import * as body_parser from "body-parser";
 
-
 import { basic_router } from "./routes/index_routes";
 import { SERVER_RESPONSE_CODES } from "./constants";
 
+// <reference path="node_modules/@types/express/index.d.ts"/>
 
 type ENVIRONMENT_TYPE = 'production' | 'development' | 'test';
-
 /**
  * 
  * 
  * @class Server
  */
-export class Server {
+export class Server{
+
 
     /**
      * 
@@ -42,15 +42,23 @@ export class Server {
     private app: any;
 
 
+    /**
+     * 
+     * 
+     * @private
+     * @type {string}@memberof Server
+     */
     private _public_files: string = "public";
+    
     /**
      * Creates an instance of Server.
-     * @param {string} [env="production"] 
+     * @param {ENVIRONMENT_TYPE} [env="production"] 
      * @param {number} [port=8000] 
-     * 
+     * @param {string} [public_dir="public"] 
      * @memberof Server
      */
-    constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir:string="public") {
+
+    constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir: string = "public") {
         this.ENVIROMENT = process.env.NODE_ENV || env;
         this.PORT = process.env.PORT || port;
         this._public_files = public_dir;
@@ -101,6 +109,16 @@ export class Server {
      * 
      * 
      * @private
+     * @memberof Server
+     */
+    private runServer(): void {
+        this.app.listen(this.PORT);
+    }
+
+    /**
+     * 
+     * 
+     * @private
      * 
      * @memberof Server
      */
@@ -118,7 +136,7 @@ export class Server {
      * 
      * @memberof Server
      */
-    private errorNotFoundHandler(request: Express.Request, response: any = {} as Express.Response, next:Function): void {
+    private errorNotFoundHandler(request: Express.Request, response: any = {} as Express.Response, next: Function): void {
         response.status(SERVER_RESPONSE_CODES.NOT_FOUND).send({ error: "Error message!" });
     }
 
@@ -134,7 +152,7 @@ export class Server {
         this.configureServer();
 
         if (this.ENVIROMENT !== 'test') {
-            this.app.listen(this.PORT);
+            this.runServer();
         } else {
             module.exports = this.app;
         }
@@ -148,7 +166,7 @@ export class Server {
 
 
 
-const server: Server=new Server(process.env.NODE_ENV,process.env.PORT);
+const server: Server = new Server(process.env.NODE_ENV, process.env.PORT);
 
 // Starts the server
 server.startServer();

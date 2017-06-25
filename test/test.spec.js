@@ -1,9 +1,8 @@
-const serverFile = '../bin/server';
 let server = {};
 const assert = require('assert');
 const supertest = require('supertest');
 
-beforeEach(() => server = supertest(require(serverFile)));
+beforeEach(() => server = supertest(require('../bin/server')));
 
 
 describe('Main test --> ', () => {

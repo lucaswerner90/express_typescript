@@ -10,6 +10,10 @@ All the packages used can be installed as usual with
 ```javascript
 npm install
 ```
+In order to prevent problems on the compilation step I highly recommend you to install TypeScript and TSC npm packages.
+```javascript
+sudo npm -g install typescript tsc
+```
 
 ## Package.json
 ### Commands

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const compression = require("compression");
 const body_parser = require("body-parser");
@@ -12,9 +13,9 @@ const constants_1 = require("./constants");
 class Server {
     /**
      * Creates an instance of Server.
-     * @param {string} [env="production"]
+     * @param {ENVIRONMENT_TYPE} [env="production"]
      * @param {number} [port=8000]
-     *
+     * @param {string} [public_dir="public"]
      * @memberof Server
      */
     constructor(env = "production", port = 8000, public_dir = "public") {
@@ -63,6 +64,15 @@ class Server {
      *
      *
      * @private
+     * @memberof Server
+     */
+    runServer() {
+        this.app.listen(this.PORT);
+    }
+    /**
+     *
+     *
+     * @private
      *
      * @memberof Server
      */
@@ -91,7 +101,7 @@ class Server {
     startServer() {
         this.configureServer();
         if (this.ENVIROMENT !== 'test') {
-            this.app.listen(this.PORT);
+            this.runServer();
         }
         else {
             module.exports = this.app;
