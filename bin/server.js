@@ -1,4 +1,3 @@
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const compression = require("compression");
@@ -19,6 +18,12 @@ class Server {
      * @memberof Server
      */
     constructor(env = "production", port = 8000, public_dir = "public") {
+        /**
+         *
+         *
+         * @private
+         * @type {string}@memberof Server
+         */
         this._public_files = "public";
         this.ENVIROMENT = process.env.NODE_ENV || env;
         this.PORT = process.env.PORT || port;
