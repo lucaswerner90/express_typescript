@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "DEBUG=express* PORT=8000 NODE_ENV=dev nodemon --exitcrash --inspect ./bin/server.js",
+    "start": "DEBUG=express* PORT=8000 NODE_ENV=dev nodemon --harmony --exitcrash --inspect ./bin/server.js",
     "test": "NODE_ENV=test nyc --reporter=html mocha ./test/**/**.spec.js",
     "coverage": "nyc report "
   },
