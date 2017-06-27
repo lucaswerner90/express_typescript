@@ -14,7 +14,8 @@ type ENVIRONMENT_TYPE = 'production' | 'development' | 'test';
  * 
  * @class Server
  */
-export class Server {
+
+class Server {
 
     /**
      * 
@@ -23,7 +24,7 @@ export class Server {
      * @type {ENVIRONMENT_TYPE}
      * @memberof Server
      */
-    private _ENVIROMENT: ENVIRONMENT_TYPE;
+    private _ENVIRONMENT: ENVIRONMENT_TYPE;
     /**
      * 
      * 
@@ -41,7 +42,6 @@ export class Server {
      */
     private app: any;
 
-
     /**
      * 
      * 
@@ -49,8 +49,8 @@ export class Server {
      * @type {string}@memberof Server
      */
     private _public_files: string = "public";
-    
-    
+
+
     /**
      * Creates an instance of Server.
      * @param {string} [env="production"] 
@@ -58,19 +58,24 @@ export class Server {
      * 
      * @memberof Server
      */
-    constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir:string="public") {
-        this._ENVIROMENT = process.env.NODE_ENV || env;
+    constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir: string = "public") {
+        this._ENVIRONMENT = process.env.NODE_ENV || env;
         this._PORT = process.env.PORT || port;
         this._public_files = public_dir;
         this.app = express();
     }
 
-    set port(port:number) {
+    /**
+     * 
+     * 
+     * @memberof Server
+     */
+    set port(port: number) {
         if (port > 4000 && port < 65536) {
             this._PORT = port;
             return;
         }
-        throw "Port must be between 4000 and 65535";    
+        throw "Port must be between 4000 and 65535";
     }
 
     /**
@@ -79,9 +84,9 @@ export class Server {
      * @readonly
      * @type {number}@memberof Server
      */
-    get port(): number{
+    get port(): number {
         return this._PORT;
-    }   
+    }
 
 
     /**
@@ -89,8 +94,8 @@ export class Server {
      * 
      * @memberof Server
      */
-    set enviroment(env:ENVIRONMENT_TYPE) {
-        this._ENVIROMENT = env;
+    set environment(env: ENVIRONMENT_TYPE) {
+        this._ENVIRONMENT = env;
     }
 
 
@@ -100,8 +105,8 @@ export class Server {
      * @readonly
      * @type {ENVIRONMENT_TYPE}@memberof Server
      */
-    get enviroment(): ENVIRONMENT_TYPE{
-        return this._ENVIROMENT;
+    get environment(): ENVIRONMENT_TYPE {
+        return this._ENVIRONMENT;
     }
 
 
@@ -110,19 +115,20 @@ export class Server {
      * 
      * @memberof Server
      */
-    set public_files(route:string) {
-        if (route.length > 0 && route.includes("/")) {
+    set public_files(route: string) {
+        if (route.length > 0 && route.indexOf("/")>-1) {
             this._public_files = route;
+            return;
         }
-        throw "The route of public_files cannot be empty";
-    }    
+        throw "The route of public_files cannot be empty and need to contain at least a / char";
+    }
     /**
      * 
      * 
      * @readonly
      * @type {string}@memberof Server
      */
-    get public_files(): string{
+    get public_files(): string {
         return this._public_files;
     }
 
@@ -133,7 +139,7 @@ export class Server {
      * 
      * @memberof Server
      */
-    set expressApp(new_app:any) {
+    set expressApp(new_app: any) {
         this.app = new_app;
     }
     /**
@@ -142,7 +148,7 @@ export class Server {
      * @readonly
      * @type {*}@memberof Server
      */
-    get expressApp(): any{
+    get expressApp(): any {
         return this.app;
     }
 
@@ -205,7 +211,7 @@ export class Server {
      * 
      * @memberof Server
      */
-    private errorNotFoundHandler(request: Express.Request, response: any = {} as Express.Response, next:Function): void {
+    private errorNotFoundHandler(request: Express.Request, response: any = {} as Express.Response, next: Function): void {
         response.status(SERVER_RESPONSE_CODES.NOT_FOUND).send({ error: "Error message!" });
     }
 
@@ -220,10 +226,17 @@ export class Server {
 
         this.configureServer();
 
-        if (this._ENVIROMENT !== 'test') {
+        if (this._ENVIRONMENT !== 'test') {
+            
             this.app.listen(this._PORT);
+
         } else {
-            module.exports = this.app;
+
+            module.exports = {
+                running_server: this.app,
+                Server: Server
+            };
+
         }
 
     }
@@ -235,7 +248,7 @@ export class Server {
 
 
 
-const server: Server=new Server(process.env.NODE_ENV,process.env.PORT);
+const server: Server = new Server(process.env.NODE_ENV, process.env.PORT);
 
 // Starts the server
 server.startServer();

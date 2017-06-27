@@ -25,11 +25,16 @@ class Server {
          * @type {string}@memberof Server
          */
         this._public_files = "public";
-        this._ENVIROMENT = process.env.NODE_ENV || env;
+        this._ENVIRONMENT = process.env.NODE_ENV || env;
         this._PORT = process.env.PORT || port;
         this._public_files = public_dir;
         this.app = express();
     }
+    /**
+     *
+     *
+     * @memberof Server
+     */
     set port(port) {
         if (port > 4000 && port < 65536) {
             this._PORT = port;
@@ -51,8 +56,8 @@ class Server {
      *
      * @memberof Server
      */
-    set enviroment(env) {
-        this._ENVIROMENT = env;
+    set environment(env) {
+        this._ENVIRONMENT = env;
     }
     /**
      *
@@ -60,8 +65,8 @@ class Server {
      * @readonly
      * @type {ENVIRONMENT_TYPE}@memberof Server
      */
-    get enviroment() {
-        return this._ENVIROMENT;
+    get environment() {
+        return this._ENVIRONMENT;
     }
     /**
      *
@@ -69,10 +74,11 @@ class Server {
      * @memberof Server
      */
     set public_files(route) {
-        if (route.length > 0 && route.includes("/")) {
+        if (route.length > 0 && route.indexOf("/") > -1) {
             this._public_files = route;
+            return;
         }
-        throw "The route of public_files cannot be empty";
+        throw "The route of public_files cannot be empty and need to contain at least a / char";
     }
     /**
      *
@@ -166,15 +172,17 @@ class Server {
      */
     startServer() {
         this.configureServer();
-        if (this._ENVIROMENT !== 'test') {
+        if (this._ENVIRONMENT !== 'test') {
             this.app.listen(this._PORT);
         }
         else {
-            module.exports = this.app;
+            module.exports = {
+                running_server: this.app,
+                Server: Server
+            };
         }
     }
 }
-exports.Server = Server;
 const server = new Server(process.env.NODE_ENV, process.env.PORT);
 // Starts the server
 server.startServer();
