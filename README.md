@@ -1,4 +1,7 @@
-# NodeJS / ExpressJS / TypeScript template 
+[![Build Status](https://travis-ci.org/lucaswerner90/express_typescript.svg?branch=master)](https://travis-ci.org/lucaswerner90/express_typescript)
+
+# NodeJS / ExpressJS / TypeScript template
+
 ![logo](https://mayajuni.github.io/2016/06/30/typescript-express/typescript-express-nodejs.jpg "NodeJS/ExpressJS/Typescript")
 ## Simple template project configured to use ExpressJS with Typescript on VS Code.
 Originally created by [Lucas Werner](https://www.linkedin.com/in/lucas-werner/)
@@ -9,6 +12,10 @@ This particular template is created using Visual Studio Code, so the TypeScript 
 All the packages used can be installed as usual with
 ```javascript
 npm install
+```
+In order to prevent problems on the compilation step I highly recommend you to install TypeScript and TSC npm packages.
+```javascript
+sudo npm -g install typescript tsc
 ```
 
 ## Package.json

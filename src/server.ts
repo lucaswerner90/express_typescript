@@ -2,13 +2,12 @@ import * as express from "express";
 import * as compression from "compression";
 import * as body_parser from "body-parser";
 
-
 import { basic_router } from "./routes/index_routes";
 import { SERVER_RESPONSE_CODES } from "./constants";
 
+// <reference path="node_modules/@types/express/index.d.ts"/>
 
 type ENVIRONMENT_TYPE = 'production' | 'development' | 'test';
-
 /**
  * 
  * 
@@ -53,9 +52,9 @@ class Server {
 
     /**
      * Creates an instance of Server.
-     * @param {string} [env="production"] 
+     * @param {ENVIRONMENT_TYPE} [env="production"] 
      * @param {number} [port=8000] 
-     * 
+     * @param {string} [public_dir="public"] 
      * @memberof Server
      */
     constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir: string = "public") {
@@ -188,6 +187,16 @@ class Server {
         this.app.use(compression());
         this.app.use(body_parser.urlencoded({ extended: true }));
         this.app.use(body_parser.json());
+    }
+
+    /**
+     * 
+     * 
+     * @private
+     * @memberof Server
+     */
+    private runServer(): void {
+        this.app.listen(this._PORT);
     }
 
     /**
