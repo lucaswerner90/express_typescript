@@ -1,4 +1,3 @@
-Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const compression = require("compression");
 const body_parser = require("body-parser");
@@ -148,7 +147,7 @@ class Server {
      * @memberof Server
      */
     runServer() {
-        this.app.listen(this.PORT);
+        this.app.listen(this._PORT);
     }
     /**
      *
@@ -181,7 +180,7 @@ class Server {
      */
     startServer() {
         this.configureServer();
-        if (this.ENVIROMENT !== 'test') {
+        if (this._ENVIRONMENT !== 'test') {
             this.runServer();
         }
         else {

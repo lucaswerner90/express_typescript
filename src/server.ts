@@ -5,7 +5,6 @@ import * as body_parser from "body-parser";
 import { basic_router } from "./routes/index_routes";
 import { SERVER_RESPONSE_CODES } from "./constants";
 
-// <reference path="node_modules/@types/express/index.d.ts"/>
 
 type ENVIRONMENT_TYPE = 'production' | 'development' | 'test';
 /**
@@ -24,6 +23,7 @@ class Server {
      * @memberof Server
      */
     private _ENVIRONMENT: ENVIRONMENT_TYPE;
+
     /**
      * 
      * 
@@ -32,6 +32,7 @@ class Server {
      * @memberof Server
      */
     private _PORT: number;
+
     /**
      * 
      * 
@@ -50,6 +51,7 @@ class Server {
     private _public_files: string = "public";
 
 
+ 
     /**
      * Creates an instance of Server.
      * @param {ENVIRONMENT_TYPE} [env="production"] 
@@ -131,8 +133,7 @@ class Server {
         return this._public_files;
     }
 
-
-
+    
     /**
      * 
      * 
@@ -237,15 +238,13 @@ class Server {
 
         if (this._ENVIRONMENT !== 'test') {
             
-            this.app.listen(this._PORT);
+            this.runServer();
 
         } else {
-
             module.exports = {
                 running_server: this.app,
                 Server: Server
             };
-
         }
 
     }
@@ -258,6 +257,7 @@ class Server {
 
 
 const server: Server = new Server(process.env.NODE_ENV, process.env.PORT);
+
 
 // Starts the server
 server.startServer();

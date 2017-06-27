@@ -5,7 +5,7 @@ import {SERVER_RESPONSE_CODES} from '../constants';
 
 let server:any;
 
-beforeEach(() => server = supertest(require('../server')));
+beforeEach(() => server = supertest(require('../server').running_server));
 
 
 describe('Main test --> ', () => {

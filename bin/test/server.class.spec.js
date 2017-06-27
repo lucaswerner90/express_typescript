@@ -1,4 +1,3 @@
-"use strict";
 const assert = require('assert');
 const server_1 = require('../server');
 let server;
