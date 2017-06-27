@@ -23,7 +23,7 @@ export class Server {
      * @type {ENVIRONMENT_TYPE}
      * @memberof Server
      */
-    private ENVIROMENT: ENVIRONMENT_TYPE;
+    private _ENVIROMENT: ENVIRONMENT_TYPE;
     /**
      * 
      * 
@@ -31,7 +31,7 @@ export class Server {
      * @type {number}
      * @memberof Server
      */
-    private PORT: number;
+    private _PORT: number;
     /**
      * 
      * 
@@ -42,7 +42,15 @@ export class Server {
     private app: any;
 
 
+    /**
+     * 
+     * 
+     * @private
+     * @type {string}@memberof Server
+     */
     private _public_files: string = "public";
+    
+    
     /**
      * Creates an instance of Server.
      * @param {string} [env="production"] 
@@ -51,10 +59,91 @@ export class Server {
      * @memberof Server
      */
     constructor(env: ENVIRONMENT_TYPE = "production", port: number = 8000, public_dir:string="public") {
-        this.ENVIROMENT = process.env.NODE_ENV || env;
-        this.PORT = process.env.PORT || port;
+        this._ENVIROMENT = process.env.NODE_ENV || env;
+        this._PORT = process.env.PORT || port;
         this._public_files = public_dir;
         this.app = express();
+    }
+
+    set port(port:number) {
+        if (port > 4000 && port < 65536) {
+            this._PORT = port;
+            return;
+        }
+        throw "Port must be between 4000 and 65535";    
+    }
+
+    /**
+     * 
+     * 
+     * @readonly
+     * @type {number}@memberof Server
+     */
+    get port(): number{
+        return this._PORT;
+    }   
+
+
+    /**
+     * 
+     * 
+     * @memberof Server
+     */
+    set enviroment(env:ENVIRONMENT_TYPE) {
+        this._ENVIROMENT = env;
+    }
+
+
+    /**
+     * 
+     * 
+     * @readonly
+     * @type {ENVIRONMENT_TYPE}@memberof Server
+     */
+    get enviroment(): ENVIRONMENT_TYPE{
+        return this._ENVIROMENT;
+    }
+
+
+    /**
+     * 
+     * 
+     * @memberof Server
+     */
+    set public_files(route:string) {
+        if (route.length > 0 && route.includes("/")) {
+            this._public_files = route;
+        }
+        throw "The route of public_files cannot be empty";
+    }    
+    /**
+     * 
+     * 
+     * @readonly
+     * @type {string}@memberof Server
+     */
+    get public_files(): string{
+        return this._public_files;
+    }
+
+
+
+    /**
+     * 
+     * 
+     * @memberof Server
+     */
+    set expressApp(new_app:any) {
+        this.app = new_app;
+    }
+    /**
+     * 
+     * 
+     * @readonly
+     * @type {*}@memberof Server
+     */
+    get expressApp(): any{
+        return this.app;
     }
 
     /**
@@ -65,11 +154,9 @@ export class Server {
      * @memberof Server
      */
     private configureServer(): void {
-
         this.configureThirdPartyMiddlewares();
         this.configureRoutes();
         this.configureHandlers();
-
     }
 
     /**
@@ -133,8 +220,8 @@ export class Server {
 
         this.configureServer();
 
-        if (this.ENVIROMENT !== 'test') {
-            this.app.listen(this.PORT);
+        if (this._ENVIROMENT !== 'test') {
+            this.app.listen(this._PORT);
         } else {
             module.exports = this.app;
         }
