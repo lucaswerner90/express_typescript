@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/lucaswerner90/express_typescript.svg?branch=master)](https://travis-ci.org/lucaswerner90/express_typescript)
+[![codebeat badge](https://codebeat.co/badges/7dff311f-ebe9-47f5-b58a-ad26e9e149c8)](https://codebeat.co/projects/github-com-lucaswerner90-express_typescript-master)
 
 # NodeJS / ExpressJS / TypeScript template
 
