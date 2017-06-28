@@ -1,5 +1,7 @@
+"use strict";
 const assert = require('assert');
 const server_1 = require('../server');
+//<reference path='../server.ts'/>
 let server;
 describe('[****] Class Server - Create empty server instance [****]', () => {
     it('[1] Has no empty environment variable', () => {

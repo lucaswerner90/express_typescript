@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const compression = require("compression");
 const body_parser = require("body-parser");

@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const basic_router = express.Router();
 exports.basic_router = basic_router;

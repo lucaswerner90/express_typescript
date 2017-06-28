@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { Server } from '../server';
 
-
+//<reference path='../server.ts'/>
 
 let server: Server;
 

@@ -51,7 +51,7 @@ class Server {
     private _public_files: string = "public";
 
 
- 
+
     /**
      * Creates an instance of Server.
      * @param {ENVIRONMENT_TYPE} [env="production"] 
@@ -117,7 +117,7 @@ class Server {
      * @memberof Server
      */
     set public_files(route: string) {
-        if (route.length > 0 && route.indexOf("/")>-1) {
+        if (route.length > 0 && route.indexOf("/") > -1) {
             this._public_files = route;
             return;
         }
@@ -133,7 +133,7 @@ class Server {
         return this._public_files;
     }
 
-    
+
     /**
      * 
      * 
@@ -237,9 +237,7 @@ class Server {
         this.configureServer();
 
         if (this._ENVIRONMENT !== 'test') {
-            
             this.runServer();
-
         } else {
             module.exports = {
                 running_server: this.app,

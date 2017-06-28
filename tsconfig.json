@@ -2,8 +2,8 @@
     "compilerOptions": {
         "module": "commonjs",
         "outDir": "bin",
+        "strictNullChecks": true,
         "target": "es6",
-        "noImplicitUseStrict": true,
         "types": [
             "node",
             "express",

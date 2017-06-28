@@ -1,3 +1,4 @@
+"use strict";
 const assert = require('assert');
 const supertest = require('supertest');
 const constants_1 = require('../constants');
